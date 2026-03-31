@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from bson import ObjectId
-from models import Customer         # අලුත් models.py එකෙන් Customer ව ගේනවා
-from database import customer_collection # database.py එකෙන් collection එක ගේනවා
+from models import Customer         
+from database import customer_collection 
 
 app = FastAPI(title="Customer Service")
 
@@ -17,4 +17,3 @@ async def get_customers():
         c["_id"] = str(c["_id"])
     return customers
 
-# ... ඔයාගේ අනිත් delete/update routes ටිකත් මේකටම යටින් දාන්න ...
