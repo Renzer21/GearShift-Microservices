@@ -26,7 +26,7 @@ async def get_all_parts():
         part["_id"] = str(part["_id"])
     return parts
 
-# NEW: Get a single part by its ID
+# Get a single part by its ID
 @app.get("/parts/{id}")
 async def get_part(id: str):
     if not ObjectId.is_valid(id):
@@ -37,7 +37,7 @@ async def get_part(id: str):
         return part
     raise HTTPException(status_code=404, detail="Part not found")
 
-# NEW: Update an existing part
+# Update an existing part
 @app.put("/parts/{id}")
 async def update_part(id: str, part: Part):
     if not ObjectId.is_valid(id):
@@ -47,7 +47,7 @@ async def update_part(id: str, part: Part):
         return {"message": "Part updated successfully"}
     raise HTTPException(status_code=404, detail="Part not found")
 
-# NEW: Delete a part
+# Delete a part
 @app.delete("/parts/{id}")
 async def delete_part(id: str):
     if not ObjectId.is_valid(id):

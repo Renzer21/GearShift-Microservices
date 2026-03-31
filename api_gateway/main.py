@@ -7,13 +7,11 @@ app = FastAPI(
     description="The single entry point routing to all 4 microservices."
 )
 
-# --- Microservice URLs ---
 PARTS_URL = "http://localhost:8001/parts/"
 CUSTOMERS_URL = "http://localhost:8002/customers/"
 ORDERS_URL = "http://localhost:8003/orders/"
 SUPPLIERS_URL = "http://localhost:8004/suppliers/"
 
-# --- Data Models (For Swagger UI Generation) ---
 class Part(BaseModel):
     name: str
     bike_model: str
@@ -33,9 +31,6 @@ class Supplier(BaseModel):
     brand_name: str
     contact_email: str
 
-# ==========================================
-# 1. PARTS ROUTES (Routes to Port 8001)
-# ==========================================
 @app.post("/api/parts/", tags=["Parts API"])
 async def create_part(part: Part):
     async with httpx.AsyncClient() as client:
@@ -73,9 +68,6 @@ async def delete_part(id: str):
         return response.json()
 
 
-# ==========================================
-# 2. CUSTOMERS ROUTES (Routes to Port 8002)
-# ==========================================
 @app.post("/api/customers/", tags=["Customers API"])
 async def create_customer(customer: Customer):
     async with httpx.AsyncClient() as client:
@@ -112,10 +104,6 @@ async def delete_customer(id: str):
             raise HTTPException(status_code=404, detail="Customer not found")
         return response.json()
 
-
-# ==========================================
-# 3. ORDERS ROUTES (Routes to Port 8003)
-# ==========================================
 @app.post("/api/orders/", tags=["Orders API"])
 async def create_order(order: Order):
     async with httpx.AsyncClient() as client:
@@ -152,10 +140,6 @@ async def delete_order(id: str):
             raise HTTPException(status_code=404, detail="Order not found")
         return response.json()
 
-
-# ==========================================
-# 4. SUPPLIERS ROUTES (Routes to Port 8004)
-# ==========================================
 @app.post("/api/suppliers/", tags=["Suppliers API"])
 async def create_supplier(supplier: Supplier):
     async with httpx.AsyncClient() as client:
