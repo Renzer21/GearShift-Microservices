@@ -70,3 +70,19 @@ Plaintext
 (Port 8001) (Port 8002)     (Port 8003) (Port 8004)
 Why an API Gateway?
 The API Gateway eliminates the need for the frontend client to memorize or manage multiple ports. All requests are securely routed through a single entry point (http://localhost:8000), demonstrating a proper industry-standard microservices architecture.
+
+## Running the Application (Windows)
+
+To start all microservices and the API Gateway simultaneously, you can use the provided batch script.
+
+1.  Make sure you have installed all dependencies:
+    ```bash
+    pip install fastapi uvicorn motor httpx pydantic
+    ```
+2.  Ensure your **MongoDB** server is running.
+3.  Run the following command in the root directory:
+    ```powershell
+    .\start_all.bat
+    ```
+
+This will launch 5 separate terminal windows for each service (Gateway, Parts, Customer, Order, and Supplier).
