@@ -33,3 +33,21 @@ async def get_supplier(id: str):
         supplier["_id"] = str(supplier["_id"])
         return supplier
     raise HTTPException(status_code=404, detail="Supplier not found")
+
+@app.put("/suppliers/{id}")
+async def update_supplier(id: str, supplier: Supplier):
+    if not ObjectId.is_valid(id):
+        raise HTTPException(status_code=400, detail="Invalid ID")
+    result = await db.suppliers.update_one({"_id": ObjectId(id)}, {"$set": supplier.dict()})
+    if result.modified_count == 1:
+        return {"message": "Supplier updated"}
+    raise HTTPException(status_code=404, detail="Supplier not found")
+
+@app.delete("/suppliers/{id}")
+async def delete_supplier(id: str):
+    if not ObjectId.is_valid(id):
+        raise HTTPException(status_code=400, detail="Invalid ID")
+    result = await db.suppliers.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 1:
+        return {"message": "Supplier deleted"}
+    raise HTTPException(status_code=404, detail="Supplier not found")
